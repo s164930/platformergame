@@ -10,6 +10,7 @@ import java.awt.Font;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
@@ -36,6 +37,7 @@ public class MainMenu extends BasicGameState{
     private TrueTypeFont playersOptionsTTF, foo;
     private Color chosen = new Color(153, 204, 255);
     private Music mainMenuMusic;
+    private Image background;
     
     public MainMenu(){
         
@@ -55,12 +57,14 @@ public class MainMenu extends BasicGameState{
         playersOptionsTTF = new TrueTypeFont(font, true);
         font = new Font("Verdana", Font.PLAIN, 20);
         foo = new TrueTypeFont(font, true);
+        background = new Image("data/img/backgrounds/mainmenuBackground.png");
         playersOptions[0] = "Start";
         playersOptions[1] = "Quit";
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
+        background.draw();
         renderPlayerOptions();
         if(exit){
             gc.exit();

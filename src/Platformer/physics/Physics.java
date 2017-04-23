@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import Platformer.character.Character;
 import Platformer.character.Player;
 import Platformer.level.Objective;
+import java.util.logging.Logger;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 
 /**
  *
@@ -21,10 +24,21 @@ import Platformer.level.Objective;
 public class Physics {
     private final float gravity = 0.0015f;
     public int collected = 0;
+    private boolean initSound = true;
+    
+    private Sound pickup;
     
     public void handlePhysics(Level level, int delta){
         handleCharacters(level,delta);
         handleLevelObjects(level, delta);
+        if(initSound){
+            try {
+                pickup = new Sound("data/soundeffects/pickup.ogg");
+            } catch (SlickException ex) {
+                ex.printStackTrace();
+            }
+            initSound = false;
+        }
     }
     
     public int getCollected(){
@@ -79,6 +93,7 @@ public class Physics {
                     if(obj instanceof Objective){
                         if(obj.getBoundingShape().checkCollision(c.getBoundingShape())){
                             collected++;
+                            pickup.play();
                             removeQueue.add(obj);
                         }
                     }
