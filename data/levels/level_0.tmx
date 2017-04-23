@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="25" tilewidth="32" tileheight="32" nextobjectid="46">
+ <properties>
+  <property name="background" value="grassy_field.png"/>
+ </properties>
+ <tileset firstgid="1" name="grassy_tileset" tilewidth="32" tileheight="32" tilecount="800" columns="20">
+  <image source="../img/tilesets/grassy_tileset/grassy_tileset.png" width="640" height="1280"/>
+  <tile id="0">
+   <properties>
+    <property name="tileType" value="air"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="CollisionLayer" width="50" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2W3QqAIAxGl0p/1vu/bl4kyJhskpCrXRzEL5EdQZcHAG8YxueJiV0pW+GxJialLOYxFOYxFn/3ODvW4AT09sj1B5Rz85a9MAGt5zxmwbkcaMR5bd6yF7eO89DCVz0c4fH2fxJHJByevFcjUN4VrR74vmv0oN6skT1ONNYcJB5c3659p3JplgnFGG4HEHh4qPcgrkdJcmlG9T+ujrd7QW8uBW43hIgTAAA=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" height="1" width="1">
+  <object id="9" name="Objective" type="Objective" x="193" y="417" width="32" height="32"/>
+  <object id="14" name="Objective" type="Objective" x="737" y="416" width="32" height="32"/>
+  <object id="42" name="Objective" type="Objective" x="1216" y="348" width="32" height="32"/>
+  <object id="43" name="Objective" type="Objective" x="1496" y="456" width="32" height="32"/>
+  <object id="44" name="Objective" type="Objective" x="800" y="644" width="32" height="32"/>
+  <object id="45" name="Objective" type="Objective" x="98" y="700" width="32" height="32"/>
+ </objectgroup>
+</map>
