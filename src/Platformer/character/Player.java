@@ -15,7 +15,6 @@ import org.newdawn.slick.SlickException;
  * @author vikto
  */
 public class Player extends Character {
-    public int collected = 0;
 
     public Player(float x, float y) throws SlickException {
         super(x, y);

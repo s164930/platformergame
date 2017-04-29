@@ -5,6 +5,8 @@
  */
 package Platformer.state;
 
+import Platformer.state.HighScore;
+
 import Platformer.PlatformerGame;
 import Platformer.character.Player;
 import Platformer.controller.MouseAndKeyBoardPlayerController;
@@ -12,6 +14,8 @@ import Platformer.controller.PlayerController;
 import Platformer.level.Level;
 import Platformer.level.Objective;
 import Platformer.physics.Physics;
+import java.text.DecimalFormat;
+import java.util.concurrent.TimeUnit;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -36,6 +40,8 @@ public class LevelState extends BasicGameState{
     public boolean playMusic = false;
     private Music levelMusic;
     
+    long startTime;
+    
     private Player player;
     private PlayerController playerController;
     
@@ -49,9 +55,11 @@ public class LevelState extends BasicGameState{
     
     public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
         levelMusic = new Music("data/music/level.ogg");
-        // når levestate bliver addet til statelisten, skal musikken fra lvl'et ikke start
+        // når levelstate bliver addet til statelisten, skal musikken fra lvl'et ikke start
         if (playMusic) levelMusic.loop();
         playMusic = true;
+        
+        startTime = System.nanoTime();
         
         player = new Player(128, 415);
         level = new Level(startingLevel, player);
@@ -70,6 +78,11 @@ public class LevelState extends BasicGameState{
         }
         if(physics.getCollected() >= level.getNumberOfObjects()){
             levelMusic.stop();
+            long endTime = System.nanoTime() - startTime;
+            DecimalFormat df = new DecimalFormat();
+            df.setMaximumFractionDigits(2);
+            System.out.println(df.format(endTime / 1000000000.0).replace(",","."));
+            HighScore.scores.add(Double.parseDouble(df.format((double)endTime/1000000000.0).replace(",",".")));
             sbg.getState(PlatformerGame.MAINMENU).init(container, sbg);
             sbg.enterState(PlatformerGame.MAINMENU, new FadeOutTransition(), new FadeInTransition());
         }

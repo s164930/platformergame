@@ -19,6 +19,11 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.Music;
+import Platformer.state.HighScore;
+import static Platformer.state.HighScore.scores;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
@@ -28,9 +33,10 @@ public class MainMenu extends BasicGameState{
     
     public static final int ID = 0;
     private int playerChoice = 0;
-    private static final int NOCHOICES = 2;
+    private static final int NOCHOICES = 3;
     private static final int START = 0;
-    private static final int QUIT = 1;
+    private static final int HIGHSCORE = 1;
+    private static final int QUIT = 2;
     private String[] playersOptions = new String[NOCHOICES];
     private boolean exit = false;
     private Font font;
@@ -38,6 +44,8 @@ public class MainMenu extends BasicGameState{
     private Color chosen = new Color(153, 204, 255);
     private Music mainMenuMusic;
     private Image background;
+    private FileWriter fw;
+    private BufferedWriter bw;
     
     public MainMenu(){
         
@@ -59,7 +67,8 @@ public class MainMenu extends BasicGameState{
         foo = new TrueTypeFont(font, true);
         background = new Image("data/img/backgrounds/mainmenuBackground.png");
         playersOptions[0] = "Start";
-        playersOptions[1] = "Quit";
+        playersOptions[1] = "Highscores";
+        playersOptions[2] = "Quit";
     }
 
     @Override
@@ -91,12 +100,17 @@ public class MainMenu extends BasicGameState{
         if(input.isKeyPressed(Input.KEY_ENTER)){
             switch(playerChoice){
                 case QUIT:
+                    saveHighScores();
                     exit = true;
                     break;
                 case START:
                     sbg.getState(PlatformerGame.LEVEL).init(gc, sbg);
                     sbg.enterState(PlatformerGame.LEVEL, new FadeOutTransition(), new FadeInTransition());
                     mainMenuMusic.stop();
+                    break;
+                case HIGHSCORE:
+                    sbg.getState(PlatformerGame.HIGHSCORE).init(gc, sbg);
+                    sbg.enterState(PlatformerGame.HIGHSCORE, new FadeOutTransition(), new FadeInTransition());
                     break;
             }
         }
@@ -110,6 +124,28 @@ public class MainMenu extends BasicGameState{
             } else {
                 playersOptionsTTF.drawString(PlatformerGame.WINDOW_WIDTH/2 - 70, i * 50 + 200, playersOptions[i]);
             }
+        }
+    }
+
+    private void saveHighScores() {
+        try{
+            fw = new FileWriter("data/score/highscores_level_0");
+            bw = new BufferedWriter(fw);
+            int i = 1;
+            for (Double score : HighScore.scores){
+                if(i<=10){
+                    System.out.println(score.toString());
+                    bw.write(score.toString());
+                    bw.newLine();
+                }
+                i++;
+                
+            }
+            
+            bw.close();
+            fw.close();
+        } catch(IOException ex){
+            ex.printStackTrace();
         }
     }
     

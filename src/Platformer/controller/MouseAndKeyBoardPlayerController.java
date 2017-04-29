@@ -6,6 +6,8 @@
 package Platformer.controller;
 
 import Platformer.character.Player;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.newdawn.slick.Input;
 /**
@@ -19,10 +21,14 @@ public class MouseAndKeyBoardPlayerController extends PlayerController{
     }
     
     public void handleInput(Input i, int delta){
-        handleKeyboardInput(i, delta);
+        try {
+            handleKeyboardInput(i, delta);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
     }
     
-    private void handleKeyboardInput(Input i, int delta){
+    private void handleKeyboardInput(Input i, int delta) throws InterruptedException{
         if(i.isKeyDown(Input.KEY_A) || i.isKeyDown(Input.KEY_LEFT)){
             player.moveLeft(delta);
         } else if (i.isKeyDown(Input.KEY_D)|| i.isKeyDown(Input.KEY_RIGHT)){

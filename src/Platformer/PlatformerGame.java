@@ -3,6 +3,7 @@ package Platformer;
 import Platformer.level.Level;
 import Platformer.state.LevelState;
 import Platformer.character.Character;
+import Platformer.state.HighScore;
 import Platformer.state.MainMenu;
 
 import org.newdawn.slick.AppGameContainer;
@@ -16,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class PlatformerGame extends StateBasedGame {
     public static final int MAINMENU = 0;
     public static final int LEVEL = 1;
+    public static final int HIGHSCORE = 2;
     
     // sætter vindue størrelsen og højden i forhold til aspect ratio af skærmen
     public static final int WINDOW_WIDTH = 1280;
@@ -38,6 +40,7 @@ public class PlatformerGame extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         this.addState(new MainMenu());
         this.addState(new LevelState(startingLevel));
+        this.addState(new HighScore());
         this.enterState(MAINMENU);
     }
     
