@@ -25,45 +25,25 @@ import java.io.FileWriter;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+
 /**
  *
  * @author viktor
  */
-public class HighScore extends BasicGameState{
+public class HighScore extends BasicGameState {
+
     private Image background;
-    private BufferedReader br;
-    private FileReader fr;
-    private FileWriter fw;
-    private BufferedWriter bw;
+    private static BufferedReader br;
+    private static FileReader fr;
+    private static FileWriter fw;
+    private static BufferedWriter bw;
     public static ArrayList<Double> scores;
     private Font font;
     private Font bigFont;
     private TrueTypeFont highScoresTTF;
     private TrueTypeFont bigFontTTF;
-    int newest;
-    
-    public HighScore() throws SlickException{ 
-        scores = new ArrayList<Double>();
-        
-        try {
-            fr = new FileReader("data/score/highscores_level_0");
-            br = new BufferedReader(fr);
-            
-            String currentScore = br.readLine();
-            
-            while(currentScore != null){
-                double temp = Double.parseDouble(currentScore);
-                scores.add(temp);
-                currentScore =  br.readLine();
-            }
-            
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        
-    }
-
+    private int newest;
+    private static String currentLevel;
 
     @Override
     public int getID() {
@@ -72,38 +52,108 @@ public class HighScore extends BasicGameState{
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        scores = new ArrayList<Double>();
+        scores.clear();
+        checkCurrentLevel();
+        loadScores();
         font = new Font("Verdana", Font.BOLD, 20);
         bigFont = new Font("Verdana", Font.BOLD, 40);
         bigFontTTF = new TrueTypeFont(bigFont, true);
         highScoresTTF = new TrueTypeFont(font, true);
         background = new Image("data/img/backgrounds/mainmenuBackground.png");
         Collections.sort(scores);
+
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         background.draw();
-        bigFontTTF.drawString(PlatformerGame.WINDOW_WIDTH/2 - 140, 60, "Highscores");
+        bigFontTTF.drawString(PlatformerGame.WINDOW_WIDTH / 2 - 140, 60, "Highscores");
         renderHighScores();
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        if(gc.getInput().isKeyPressed(Input.KEY_ESCAPE)){
+        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            sbg.getState(PlatformerGame.MAINMENU).init(gc, sbg);
             sbg.enterState(PlatformerGame.MAINMENU, new FadeOutTransition(), new FadeInTransition());
         }
     }
 
     private void renderHighScores() {
         int i = 1;
-        for (Double d : scores){
-            if(i<=10){
-                highScoresTTF.drawString(PlatformerGame.WINDOW_WIDTH/2 - 70, i * 30 + 100, i + ": " + d);
+        for (Double d : scores) {
+            if (i <= 10) {
+                highScoresTTF.drawString(PlatformerGame.WINDOW_WIDTH / 2 - 70, i * 30 + 100, i + ": " + d);
             }
             i++;
-            
+
         }
     }
 
-    
+    private static void checkCurrentLevel() {
+        switch (PlatformerGame.currentLevel) {
+            case 1:
+                currentLevel = "level_1";
+                break;
+            case 2:
+                currentLevel = "level_2";
+                break;
+            case 3:
+                currentLevel = "level_3";
+                break;
+            default:
+                break;
+        }
+    }
+
+    public static void saveScores(Double d) {
+        checkCurrentLevel();
+        scores.clear();
+        loadScores();
+        scores.add(d);
+        Collections.sort(scores);
+        try {
+            fw = new FileWriter("data/score/highscores_" + currentLevel);
+            bw = new BufferedWriter(fw);
+            int i = 1;
+            for (Double score : HighScore.scores) {
+                if (i <= 10) {
+                    System.out.println(score.toString());
+                    bw.write(score.toString());
+                    bw.newLine();
+                }
+                i++;
+
+            }
+
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    private static void loadScores() {
+        checkCurrentLevel();
+        try {
+            fr = new FileReader("data/score/highscores_" + currentLevel);
+            br = new BufferedReader(fr);
+
+            String currentScore = br.readLine();
+
+            while (currentScore != null) {
+                double temp = Double.parseDouble(currentScore);
+                scores.add(temp);
+                currentScore = br.readLine();
+            }
+            fr.close();
+            br.close();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

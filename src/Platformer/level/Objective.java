@@ -20,7 +20,7 @@ public class Objective extends LevelObject{
     public Objective(float x, float y) throws SlickException {
         super(x, y);
         
-        image = new Image("data/img/objekts/level_1/obj_chest.png");
+        image = new Image("data/img/objekts/chest.png");
     }
     
     public void render(float offset_x, float offset_y){

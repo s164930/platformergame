@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="25" tilewidth="32" tileheight="32" nextobjectid="62">
+ <properties>
+  <property name="background" value="grassy_field.png"/>
+ </properties>
+ <tileset firstgid="1" name="grassy_tileset" tilewidth="32" tileheight="32" tilecount="800" columns="20">
+  <image source="../img/tilesets/grassy_tileset/grassy_tileset.png" width="640" height="1280"/>
+  <tile id="0">
+   <properties>
+    <property name="tileType" value="air"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="CollisionLayer" width="50" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2W2wqAMAhArY3u/f/v1kODITMdDdLy4SCzMTwDZwEAguM4n2c9WYwyZx7TSWeU0T1U4R66+LvH3rCGXkBrj1R/RHluXXMWJqL9nMcguJcNRZyn1jVncfs4Dyt8wYPqL+zx9n/SHZTDk/dKA3mvWPXA/W7Ro/RmafbYUaQcJB7c3Ka+l/LSXCJmMV4OIPAIQM8gbkZJ8tJcaf5xdbw9D1pzAOSqy+KIEwAA
+  </data>
+ </layer>
+ <objectgroup color="#aa0000" name="Objectives" height="1" width="1">
+  <object id="9" name="Objective" type="Objective" x="193" y="417" width="32" height="32"/>
+  <object id="14" name="Objective" type="Objective" x="715" y="416" width="32" height="32"/>
+  <object id="42" name="Objective" type="Objective" x="1216" y="348" width="32" height="32"/>
+  <object id="43" name="Objective" type="Objective" x="1503" y="478" width="32" height="32"/>
+  <object id="44" name="Objective" type="Objective" x="800" y="644" width="32" height="32"/>
+  <object id="45" name="Objective" type="Objective" x="98" y="700" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup color="#555500" name="Spikes" height="1" width="1">
+  <object id="52" name="Spike" type="Spike" x="352" y="418" width="32" height="32"/>
+  <object id="54" name="Spike" type="Spike" x="578" y="418" width="32" height="32"/>
+  <object id="55" name="Spike" type="Spike" x="834" y="418" width="32" height="32"/>
+  <object id="56" name="Spike" type="Spike" x="1312" y="384" width="32" height="32"/>
+  <object id="57" name="Spike" type="Spike" x="1088" y="704" width="32" height="32"/>
+  <object id="60" name="Spike" type="Spike" x="320" y="704" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup color="#000000" name="Players" height="1" width="1">
+  <object id="1" name="Player" type="Player" x="128" y="415" width="26" height="32"/>
+ </objectgroup>
+</map>

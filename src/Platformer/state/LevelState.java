@@ -34,13 +34,14 @@ import org.newdawn.slick.Music;
 public class LevelState extends BasicGameState{
     
     Level level;
-    String startingLevel;
+    String currentLevel;
     int ID = 1;
     
     public boolean playMusic = false;
     private Music levelMusic;
     
     long startTime;
+    Double levelTime;
     
     private Player player;
     private PlayerController playerController;
@@ -49,9 +50,6 @@ public class LevelState extends BasicGameState{
     
     Input input;
     
-    public LevelState(String startingLevel){
-        this.startingLevel = startingLevel;
-    }
     
     public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
         levelMusic = new Music("data/music/level.ogg");
@@ -60,9 +58,9 @@ public class LevelState extends BasicGameState{
         playMusic = true;
         
         startTime = System.nanoTime();
-        
-        player = new Player(128, 415);
-        level = new Level(startingLevel, player);
+        player = new Player(0 , 0);
+        checkCurrentLevel();
+        level = new Level(currentLevel, player);
 
         playerController = new MouseAndKeyBoardPlayerController(player);
         physics = new Physics();
@@ -71,7 +69,7 @@ public class LevelState extends BasicGameState{
     public void update(GameContainer container, StateBasedGame sbg, int delta) throws SlickException{
         playerController.handleInput(container.getInput(), delta);
         physics.handlePhysics(level, delta);
-        if(container.getInput().isKeyPressed(Input.KEY_ESCAPE)){
+        if(container.getInput().isKeyPressed(Input.KEY_ESCAPE) || physics.isDead()){
             levelMusic.stop();
             sbg.getState(PlatformerGame.MAINMENU).init(container, sbg);
             sbg.enterState(PlatformerGame.MAINMENU, new FadeOutTransition(), new FadeInTransition());
@@ -82,9 +80,9 @@ public class LevelState extends BasicGameState{
             DecimalFormat df = new DecimalFormat();
             df.setMaximumFractionDigits(2);
             System.out.println(df.format(endTime / 1000000000.0).replace(",","."));
-            HighScore.scores.add(Double.parseDouble(df.format((double)endTime/1000000000.0).replace(",",".")));
-            sbg.getState(PlatformerGame.MAINMENU).init(container, sbg);
-            sbg.enterState(PlatformerGame.MAINMENU, new FadeOutTransition(), new FadeInTransition());
+            HighScore.saveScores(Double.parseDouble(df.format((double)endTime/1000000000.0).replace(",",".")));
+            sbg.getState(PlatformerGame.HIGHSCORE).init(container, sbg);
+            sbg.enterState(PlatformerGame.HIGHSCORE, new FadeOutTransition(), new FadeInTransition());
         }
         
 
@@ -97,6 +95,23 @@ public class LevelState extends BasicGameState{
     
     public int getID(){
         return ID;
+    }
+
+    private void checkCurrentLevel() {
+        switch(PlatformerGame.currentLevel){
+            case 1:
+                this.currentLevel = "level_1";
+                break;
+            case 2:
+                this.currentLevel = "level_2";
+                break;
+            case 3:
+                this.currentLevel = "level_3";
+                break;
+            default:
+                break;
+            
+        }
     }
     
 }

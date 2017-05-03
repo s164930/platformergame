@@ -21,14 +21,17 @@ import org.newdawn.slick.Image;
  * @author vikto
  */
 public class Level {
-
+    private int OBJECTIVELAYER = 0;
+    private int SPIKELAYER = 1;
+    private int PLAYERLAYER = 2;
+    
     private TiledMap map;
 
     private Tile[][] tiles;
 
     private ArrayList<LevelObject> levelObjects;
     private ArrayList<Character> characters;
-    private Player player;
+    public Player player;
 
     private Image background;
 
@@ -37,7 +40,10 @@ public class Level {
         characters = new ArrayList<Character>();
         levelObjects = new ArrayList<LevelObject>();
         this.player = player;
-        addCharacter(player);
+        this.player.setX(map.getObjectX(PLAYERLAYER, 0));
+        this.player.setY(map.getObjectY(PLAYERLAYER, 0));
+        addCharacter(this.player);
+
         background = new Image("data/img/backgrounds/" + map.getMapProperty("background", "grassy_field.png"));
         loadTileMap();
         loadObjects();
@@ -46,7 +52,7 @@ public class Level {
     public void addLevelObject(LevelObject obj) {
         levelObjects.add(obj);
     }
-
+    
     public void addCharacter(Character c) {
         characters.add(c);
     }
@@ -114,12 +120,21 @@ public class Level {
     }
 
     public void loadObjects() throws SlickException {
-        int objectAmount = map.getObjectCount(0);
-
+        int objectAmount = map.getObjectCount(OBJECTIVELAYER);
+        int spikeAmount = map.getObjectCount(SPIKELAYER);
+        
+        // dette for-loop går igennem alle objekt-lagene i .tmx filen og indlæser de forskellige karakterer, objectives osv.
         for (int i = 0; i < objectAmount; i++) {
-            switch (map.getObjectName(0, i)) {
+            switch (map.getObjectName(OBJECTIVELAYER, i)) {
                 case "Objective":
-                    addLevelObject(new Objective(map.getObjectX(0, i), map.getObjectY(0, i)));
+                    addLevelObject(new Objective(map.getObjectX(OBJECTIVELAYER, i), map.getObjectY(OBJECTIVELAYER, i)));
+                    break;
+                default:
+                    break;
+            }
+            switch (map.getObjectName(SPIKELAYER, i)){
+                case "Spike":
+                    addLevelObject(new Spike(map.getObjectX(SPIKELAYER, i), map.getObjectY(SPIKELAYER, i)));
                     break;
                 default:
                     break;

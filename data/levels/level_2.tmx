@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="25" tilewidth="32" tileheight="32" nextobjectid="62">
+ <tileset firstgid="1" name="grassy_tileset" tilewidth="32" tileheight="32" tilecount="800" columns="20">
+  <image source="../img/tilesets/grassy_tileset/grassy_tileset.png" width="640" height="1280"/>
+  <tile id="0">
+   <properties>
+    <property name="tileType" value="air"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="CollisionLayer" width="50" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2WOxKEMAxDs+b+d6bZgmGMbNkKv91CHSh+lsiwjDGWvx6hzw31BgaWp3uG3YCnO799fWyjJ3EY8FSxeD5KDgPvq1gs8O9wGPD3zuv0LNpTlQNlkOFR581yWODLsGR50HwVjv23jJ5T8Rydud9nloNhYPaN7gFvzmoeTI+8czvZZOZDd/1W1c55nkw2R35ZjkrfEEMlG0YqBnYf6n+VszKYmU1mBlWWs1i6DN0cVD2r9knRJVU22TlmZxBlEynrdwXD7L1cPcuvaQUd2CAciBMAAA==
+  </data>
+ </layer>
+ <objectgroup color="#aa0000" name="Objectives" width="1" height="1">
+  <object id="3" name="Objective" type="Objective" x="320" y="352" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup color="#aa00ff" name="Spikes" width="1" height="1">
+  <object id="2" name="Spike" type="Spike" x="288" y="382" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup color="#000000" name="Players" width="1" height="1">
+  <object id="1" name="Player" type="Player" x="162" y="412" width="26" height="32"/>
+ </objectgroup>
+</map>

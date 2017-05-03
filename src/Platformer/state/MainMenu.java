@@ -29,8 +29,8 @@ import java.io.IOException;
  *
  * @author Viktor Vase Frandsen
  */
-public class MainMenu extends BasicGameState{
-    
+public class MainMenu extends BasicGameState {
+
     public static final int ID = 0;
     private int playerChoice = 0;
     private static final int NOCHOICES = 3;
@@ -38,20 +38,22 @@ public class MainMenu extends BasicGameState{
     private static final int HIGHSCORE = 1;
     private static final int QUIT = 2;
     private String[] playersOptions = new String[NOCHOICES];
+    private String[] levelOptions = new String[NOCHOICES];
     private boolean exit = false;
     private Font font;
-    private TrueTypeFont playersOptionsTTF, foo;
+    private TrueTypeFont playersOptionsTTF;
     private Color chosen = new Color(153, 204, 255);
-    private Music mainMenuMusic;
+    private static Music mainMenuMusic;
     private Image background;
     private FileWriter fw;
     private BufferedWriter bw;
+    private boolean levelSelect = false;
+    private boolean highScoreSelect = false;
     
-    public MainMenu(){
-        
+    public MainMenu() throws SlickException{
+        mainMenuMusic = new Music("/data/music/mainMenu.ogg");
     }
-    
-    
+
     @Override
     public int getID() {
         return ID;
@@ -59,23 +61,27 @@ public class MainMenu extends BasicGameState{
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        mainMenuMusic = new Music("/data/music/mainMenu.ogg");
-        mainMenuMusic.loop();
+
+        if (!mainMenuMusic.playing()) {
+            mainMenuMusic.loop();
+        }
         font = new Font("Verdana", Font.BOLD, 40);
         playersOptionsTTF = new TrueTypeFont(font, true);
         font = new Font("Verdana", Font.PLAIN, 20);
-        foo = new TrueTypeFont(font, true);
         background = new Image("data/img/backgrounds/mainmenuBackground.png");
         playersOptions[0] = "Start";
         playersOptions[1] = "Highscores";
         playersOptions[2] = "Quit";
+        levelOptions[0] = "Level 1";
+        levelOptions[1] = "Level 2";
+        levelOptions[2] = "Level 3";
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         background.draw();
         renderPlayerOptions();
-        if(exit){
+        if (exit) {
             gc.exit();
         }
     }
@@ -83,70 +89,88 @@ public class MainMenu extends BasicGameState{
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         Input input = gc.getInput();
-        if(input.isKeyPressed(Input.KEY_DOWN)){
-            if(playerChoice == (NOCHOICES -1)){
+        if (levelSelect || highScoreSelect) {
+            if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+                levelSelect = false;
+                highScoreSelect = false;
+            }
+        }
+        if (input.isKeyPressed(Input.KEY_DOWN)) {
+            if (playerChoice == (NOCHOICES - 1)) {
                 playerChoice = 0;
             } else {
                 playerChoice++;
             }
         }
-        if(input.isKeyPressed(Input.KEY_UP)){
-            if(playerChoice == 0){
+        if (input.isKeyPressed(Input.KEY_UP)) {
+            if (playerChoice == 0) {
                 playerChoice = NOCHOICES - 1;
             } else {
                 playerChoice--;
             }
         }
-        if(input.isKeyPressed(Input.KEY_ENTER)){
-            switch(playerChoice){
-                case QUIT:
-                    saveHighScores();
-                    exit = true;
-                    break;
-                case START:
+        if (input.isKeyPressed(Input.KEY_ENTER)) {
+            if (levelSelect) {
+                switch (playerChoice) {
+                    case 0:
+                        PlatformerGame.currentLevel = 1;
+                        break;
+                    case 1:
+                        PlatformerGame.currentLevel = 2;
+                        break;
+                    case 2:
+                        PlatformerGame.currentLevel = 3;
+                        break;
+                    default:
+                        break;
+                }
+                if (highScoreSelect) {
+                    sbg.getState(PlatformerGame.HIGHSCORE).init(gc, sbg);
+                    sbg.enterState(PlatformerGame.HIGHSCORE, new FadeOutTransition(), new FadeInTransition());
+                } else {
                     sbg.getState(PlatformerGame.LEVEL).init(gc, sbg);
                     sbg.enterState(PlatformerGame.LEVEL, new FadeOutTransition(), new FadeInTransition());
                     mainMenuMusic.stop();
-                    break;
-                case HIGHSCORE:
-                    sbg.getState(PlatformerGame.HIGHSCORE).init(gc, sbg);
-                    sbg.enterState(PlatformerGame.HIGHSCORE, new FadeOutTransition(), new FadeInTransition());
-                    break;
-            }
-        }
-    }
-    
-    private void renderPlayerOptions(){
-        for(int i = 0; i < NOCHOICES; i++){
-            if(playerChoice == i){
-                playersOptionsTTF.drawString(PlatformerGame.WINDOW_WIDTH/2 - 70, i * 50 + 200, playersOptions[i], chosen);
-                
+                }
+
             } else {
-                playersOptionsTTF.drawString(PlatformerGame.WINDOW_WIDTH/2 - 70, i * 50 + 200, playersOptions[i]);
+                switch (playerChoice) {
+                    case QUIT:
+                        exit = true;
+                        break;
+                    case START:
+                        levelSelect = true;
+                        break;
+                    case HIGHSCORE:
+                        highScoreSelect = true;
+                        levelSelect = true;
+                        break;
+                }
             }
+
         }
     }
 
-    private void saveHighScores() {
-        try{
-            fw = new FileWriter("data/score/highscores_level_0");
-            bw = new BufferedWriter(fw);
-            int i = 1;
-            for (Double score : HighScore.scores){
-                if(i<=10){
-                    System.out.println(score.toString());
-                    bw.write(score.toString());
-                    bw.newLine();
+    private void renderPlayerOptions() {
+        if (levelSelect) {
+            for (int i = 0; i < NOCHOICES; i++) {
+                if (playerChoice == i) {
+                    playersOptionsTTF.drawString(PlatformerGame.WINDOW_WIDTH / 2 - 70, i * 50 + 200, levelOptions[i], chosen);
+                } else {
+                    playersOptionsTTF.drawString(PlatformerGame.WINDOW_WIDTH / 2 - 70, i * 50 + 200, levelOptions[i]);
                 }
-                i++;
-                
             }
-            
-            bw.close();
-            fw.close();
-        } catch(IOException ex){
-            ex.printStackTrace();
+        } else {
+            for (int i = 0; i < NOCHOICES; i++) {
+                if (playerChoice == i) {
+                    playersOptionsTTF.drawString(PlatformerGame.WINDOW_WIDTH / 2 - 70, i * 50 + 200, playersOptions[i], chosen);
+
+                } else {
+                    playersOptionsTTF.drawString(PlatformerGame.WINDOW_WIDTH / 2 - 70, i * 50 + 200, playersOptions[i]);
+                }
+            }
         }
+
     }
-    
+
 }

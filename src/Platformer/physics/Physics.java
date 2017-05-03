@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import Platformer.character.Character;
 import Platformer.character.Player;
 import Platformer.level.Objective;
+import Platformer.level.Spike;
 import java.util.logging.Logger;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
@@ -22,10 +23,11 @@ import org.newdawn.slick.Sound;
  * @author vikto
  */
 public class Physics {
-    private final float gravity = 0.0015f;
+    private final float gravity = 0.0010f;
     public int collected = 0;
     private boolean initSound = true;
     
+    public boolean dead = false;
     private Sound pickup;
     
     public void handlePhysics(Level level, int delta){
@@ -39,6 +41,9 @@ public class Physics {
             }
             initSound = false;
         }
+    }
+    public boolean isDead(){
+        return dead;
     }
     
     public int getCollected(){
@@ -95,6 +100,12 @@ public class Physics {
                             collected++;
                             pickup.play();
                             removeQueue.add(obj);
+                        }
+                    }
+                    
+                    if(obj instanceof Spike){
+                        if(obj.getBoundingShape().checkCollision(c.getBoundingShape())){
+                            dead = true;
                         }
                     }
                 }

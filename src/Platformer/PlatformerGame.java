@@ -1,8 +1,6 @@
 package Platformer;
 
-import Platformer.level.Level;
 import Platformer.state.LevelState;
-import Platformer.character.Character;
 import Platformer.state.HighScore;
 import Platformer.state.MainMenu;
 
@@ -24,7 +22,7 @@ public class PlatformerGame extends StateBasedGame {
     public static final int WINDOW_HEIGHT = WINDOW_WIDTH / 16 * 9;
     public static final boolean FULLSCREEN = false;
     public static final boolean FPS = false;
-    public static String startingLevel = "level_0";
+    public static int currentLevel = 1;
     
     /*
     1280x720 er standarden, derfor skalerer vi tiles der er 32x32 store, men vi vil gerne have dem til at være
@@ -39,7 +37,7 @@ public class PlatformerGame extends StateBasedGame {
 
     public void initStatesList(GameContainer gc) throws SlickException {
         this.addState(new MainMenu());
-        this.addState(new LevelState(startingLevel));
+        this.addState(new LevelState());
         this.addState(new HighScore());
         this.enterState(MAINMENU);
     }
