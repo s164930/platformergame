@@ -12,10 +12,8 @@ import Platformer.character.Player;
 import Platformer.controller.MouseAndKeyBoardPlayerController;
 import Platformer.controller.PlayerController;
 import Platformer.level.Level;
-import Platformer.level.Objective;
 import Platformer.physics.Physics;
 import java.text.DecimalFormat;
-import java.util.concurrent.TimeUnit;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -33,22 +31,22 @@ import org.newdawn.slick.Music;
  */
 public class LevelState extends BasicGameState{
     
-    Level level;
-    String currentLevel;
-    int ID = 1;
+    private Level level;
+    private String currentLevel;
+    private int ID = 1;
     
     public boolean playMusic = false;
     private Music levelMusic;
     
-    long startTime;
-    Double levelTime;
+    private long startTime;
+    private Double levelTime;
     
     private Player player;
     private PlayerController playerController;
     
     private Physics physics;
     
-    Input input;
+    private Input input;
     
     
     public void init(GameContainer container, StateBasedGame sbg) throws SlickException {

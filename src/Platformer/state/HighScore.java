@@ -42,7 +42,6 @@ public class HighScore extends BasicGameState {
     private Font bigFont;
     private TrueTypeFont highScoresTTF;
     private TrueTypeFont bigFontTTF;
-    private int newest;
     private static String currentLevel;
 
     @Override
