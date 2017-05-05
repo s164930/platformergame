@@ -70,7 +70,7 @@ public class Level {
     }
     
     public int getNumberOfObjects(){
-        return map.getObjectCount(0);
+        return map.getObjectCount(OBJECTIVELAYER);
     }
 
     public void render() {

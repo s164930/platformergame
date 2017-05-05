@@ -21,6 +21,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.Music;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import org.newdawn.slick.opengl.TextureImpl;
 
 /**
  *
@@ -37,17 +38,16 @@ public class MainMenu extends BasicGameState {
     private String[] playersOptions = new String[NOCHOICES];
     private String[] levelOptions = new String[NOCHOICES];
     private boolean exit = false;
-    private Font font;
-    private TrueTypeFont playersOptionsTTF;
+    private Font playerOptionsFont, titleFont;
+    private TrueTypeFont playersOptionsTTF, titleTTF;
     private Color chosen = new Color(153, 204, 255);
     private static Music mainMenuMusic;
     private Image background;
-    private FileWriter fw;
-    private BufferedWriter bw;
     private boolean levelSelect = false;
     private boolean highScoreSelect = false;
-    
-    public MainMenu() throws SlickException{
+    private String title = "A Game of Debt";
+
+    public MainMenu() throws SlickException {
         mainMenuMusic = new Music("/data/music/mainMenu.ogg");
     }
 
@@ -62,9 +62,11 @@ public class MainMenu extends BasicGameState {
         if (!mainMenuMusic.playing()) {
             mainMenuMusic.loop();
         }
-        font = new Font("Verdana", Font.BOLD, 40);
-        playersOptionsTTF = new TrueTypeFont(font, true);
-        font = new Font("Verdana", Font.PLAIN, 20);
+        playerOptionsFont = new Font("Verdana", Font.BOLD, 40);
+        playersOptionsTTF = new TrueTypeFont(playerOptionsFont, true);
+        titleFont = new Font("Verdana", Font.BOLD, 40);
+        titleTTF = new TrueTypeFont(titleFont, true);
+
         background = new Image("data/img/backgrounds/mainmenuBackground.png");
         playersOptions[0] = "Start";
         playersOptions[1] = "Highscores";
@@ -77,6 +79,10 @@ public class MainMenu extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         background.draw();
+        // renderTitle();
+        TextureImpl.bindNone();
+        titleTTF.drawString(PlatformerGame.WINDOW_WIDTH / 2 - 160, 120, title, Color.orange);
+
         renderPlayerOptions();
         if (exit) {
             gc.exit();
@@ -170,4 +176,6 @@ public class MainMenu extends BasicGameState {
 
     }
 
+    // private void renderTitle() {
+    //}
 }
