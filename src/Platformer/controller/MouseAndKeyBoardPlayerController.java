@@ -6,40 +6,39 @@
 package Platformer.controller;
 
 import Platformer.character.Player;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.newdawn.slick.Input;
+
 /**
  *
  * @author vikto
  */
-public class MouseAndKeyBoardPlayerController extends PlayerController{
-    
-    public MouseAndKeyBoardPlayerController(Player player){
+public class MouseAndKeyBoardPlayerController extends PlayerController {
+
+    public MouseAndKeyBoardPlayerController(Player player) {
         super(player);
     }
-    
-    public void handleInput(Input i, int delta){
+
+    public void handleInput(Input i, int delta) {
         try {
             handleKeyboardInput(i, delta);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
     }
-    
-    private void handleKeyboardInput(Input i, int delta) throws InterruptedException{
-        if(i.isKeyDown(Input.KEY_A) || i.isKeyDown(Input.KEY_LEFT)){
+
+    private void handleKeyboardInput(Input i, int delta) throws InterruptedException {
+        if (i.isKeyDown(Input.KEY_A) || i.isKeyDown(Input.KEY_LEFT)) {
             player.moveLeft(delta);
-        } else if (i.isKeyDown(Input.KEY_D)|| i.isKeyDown(Input.KEY_RIGHT)){
+        } else if (i.isKeyDown(Input.KEY_D) || i.isKeyDown(Input.KEY_RIGHT)) {
             player.moveRight(delta);
         } else {
             player.setMoving(false);
         }
-        
-        if(i.isKeyDown(Input.KEY_SPACE) || i.isKeyDown(Input.KEY_UP) || i.isKeyDown(Input.KEY_W)){
+
+        if (i.isKeyDown(Input.KEY_SPACE) || i.isKeyDown(Input.KEY_UP) || i.isKeyDown(Input.KEY_W)) {
             player.jump();
         }
     }
-    
+
 }

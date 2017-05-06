@@ -21,10 +21,11 @@ import org.newdawn.slick.Image;
  * @author vikto
  */
 public class Level {
+
     private int OBJECTIVELAYER = 0;
     private int SPIKELAYER = 1;
     private int PLAYERLAYER = 2;
-    
+
     private TiledMap map;
 
     private Tile[][] tiles;
@@ -52,7 +53,7 @@ public class Level {
     public void addLevelObject(LevelObject obj) {
         levelObjects.add(obj);
     }
-    
+
     public void addCharacter(Character c) {
         characters.add(c);
     }
@@ -68,8 +69,8 @@ public class Level {
     public Tile[][] getTiles() {
         return tiles;
     }
-    
-    public int getNumberOfObjects(){
+
+    public int getNumberOfObjects() {
         return map.getObjectCount(OBJECTIVELAYER);
     }
 
@@ -122,7 +123,7 @@ public class Level {
     public void loadObjects() throws SlickException {
         int objectAmount = map.getObjectCount(OBJECTIVELAYER);
         int spikeAmount = map.getObjectCount(SPIKELAYER);
-        
+
         // dette for-loop går igennem alle objekt-lagene i .tmx filen og indlæser de forskellige karakterer, objectives osv.
         for (int i = 0; i < objectAmount; i++) {
             switch (map.getObjectName(OBJECTIVELAYER, i)) {
@@ -132,7 +133,10 @@ public class Level {
                 default:
                     break;
             }
-            switch (map.getObjectName(SPIKELAYER, i)){
+
+        }
+        for (int i = 0; i < spikeAmount; i++) {
+            switch (map.getObjectName(SPIKELAYER, i)) {
                 case "Spike":
                     addLevelObject(new Spike(map.getObjectX(SPIKELAYER, i), map.getObjectY(SPIKELAYER, i)));
                     break;

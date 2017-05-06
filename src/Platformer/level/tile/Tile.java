@@ -12,25 +12,25 @@ import Platformer.physics.BoundingShape;
  * @author vikto
  */
 public class Tile {
-    
+
     protected int x, y;
     protected BoundingShape boundingShape;
-    
-    public Tile(int x, int y){
+
+    public Tile(int x, int y) {
         this.x = x;
         this.y = y;
         boundingShape = null;
     }
-    
-    public int getX(){
+
+    public int getX() {
         return x;
     }
-    
-    public int getY(){
+
+    public int getY() {
         return y;
     }
-    
-    public BoundingShape getBoundingShape(){
+
+    public BoundingShape getBoundingShape() {
         return boundingShape;
     }
 }

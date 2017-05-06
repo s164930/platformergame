@@ -19,8 +19,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.Music;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import org.newdawn.slick.opengl.TextureImpl;
 
 /**
@@ -154,6 +152,9 @@ public class MainMenu extends BasicGameState {
         }
     }
 
+    /*
+    Tegner de forskellige strings, med farve på spillerens valgte skærm-element.
+     */
     private void renderPlayerOptions() {
         if (levelSelect) {
             for (int i = 0; i < NOCHOICES; i++) {

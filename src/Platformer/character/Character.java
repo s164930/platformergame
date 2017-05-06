@@ -23,7 +23,6 @@ public abstract class Character extends LevelObject {
     protected HashMap<Facing, Image> sprites;
     protected HashMap<Facing, Animation> movingAnimations;
     protected long lastTimeMoved;
-    
 
     Sound jumping = new Sound("data/soundeffects/jump.ogg");
     Sound moveSound = new Sound("data/soundeffects/footstep.ogg");
@@ -92,7 +91,7 @@ public abstract class Character extends LevelObject {
     public void jump() {
         if (onGround) {
             y_velocity = -0.4f;
-            if(!jumping.playing()){
+            if (!jumping.playing()) {
                 jumping.play();
             }
         }
@@ -104,7 +103,7 @@ public abstract class Character extends LevelObject {
      */
     public void moveLeft(int delta) throws InterruptedException {
         // hvis vi ikke allerede er på max hastighed
-        if (onGround && !moveSound.playing()){
+        if (onGround && !moveSound.playing()) {
             moveSound.play();
         }
         if (x_velocity > -maximumSpeed) {

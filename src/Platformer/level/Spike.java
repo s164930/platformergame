@@ -15,16 +15,16 @@ import org.newdawn.slick.SlickException;
 public class Spike extends LevelObject {
 
     Image image;
-    
+
     public Spike(float x, float y) throws SlickException {
         super(x, y);
-        
+
         image = new Image("data/img/objekts/spikes.png");
     }
 
     @Override
     public void render(float offset_x, float offset_y) {
-        image.draw(x-2-offset_x, y-offset_y+2);
+        image.draw(x - 2 - offset_x, y - offset_y + 2);
     }
-    
+
 }

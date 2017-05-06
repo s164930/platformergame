@@ -8,16 +8,18 @@ package Platformer.controller;
 import Platformer.character.Player;
 
 import org.newdawn.slick.Input;
+
 /**
  *
  * @author vikto
  */
 public abstract class PlayerController {
+
     protected Player player;
-    
-    public PlayerController(Player player){
+
+    public PlayerController(Player player) {
         this.player = player;
     }
-    
+
     public abstract void handleInput(Input i, int delta);
 }

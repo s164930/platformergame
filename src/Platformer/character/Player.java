@@ -20,18 +20,18 @@ public class Player extends Character {
         super(x, y);
         setSprite(new Image("data/img/sprite_platformer/movingright1.png"));
 
-        setMovingAnimation(new Image[]{new Image("data/img/sprite_platformer/movingright1.png"), 
-                           new Image("data/img/sprite_platformer/movingright2.png")}, 125);
-        
+        setMovingAnimation(new Image[]{new Image("data/img/sprite_platformer/movingright1.png"),
+            new Image("data/img/sprite_platformer/movingright2.png")}, 125);
+
         boundingShape = new AABoundingRect(x, y, 26, 32);
-        
+
         accelerationSpeed = 0.001f;
         maximumSpeed = 0.15f;
         maximumFallSpeed = 0.3f;
         decelerationSpeed = 0.001f;
     }
 
-    public void updateBoundingShape(){
+    public void updateBoundingShape() {
         boundingShape.updatePosition(x, y);
     }
 }
