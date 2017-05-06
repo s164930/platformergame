@@ -19,7 +19,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.Music;
-import org.newdawn.slick.opengl.TextureImpl;
 
 /**
  *
