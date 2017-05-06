@@ -77,8 +77,6 @@ public class MainMenu extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         background.draw();
-        // renderTitle();
-        TextureImpl.bindNone();
         titleTTF.drawString(PlatformerGame.WINDOW_WIDTH / 2 - 160, 120, title, Color.orange);
 
         renderPlayerOptions();
@@ -177,6 +175,4 @@ public class MainMenu extends BasicGameState {
 
     }
 
-    // private void renderTitle() {
-    //}
 }

@@ -33,7 +33,7 @@ public abstract class Character extends LevelObject {
 
     public Character(float x, float y) throws SlickException {
         super(x, y);
-        setSprite(new Image("data/img/sprite_platformer/movingright1.png"));
+        setSprite(new Image("data/img/sprite_platformer/idle.png"));
         facing = Facing.RIGHT;
     }
 

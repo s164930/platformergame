@@ -5,7 +5,6 @@
  */
 package Platformer.character;
 
-import Platformer.enums.Facing;
 import Platformer.physics.AABoundingRect;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -18,10 +17,12 @@ public class Player extends Character {
 
     public Player(float x, float y) throws SlickException {
         super(x, y);
-        setSprite(new Image("data/img/sprite_platformer/movingright1.png"));
+        setSprite(new Image("data/img/sprite_platformer/idle.png"));
 
-        setMovingAnimation(new Image[]{new Image("data/img/sprite_platformer/movingright1.png"),
-            new Image("data/img/sprite_platformer/movingright2.png")}, 125);
+        setMovingAnimation(new Image[]{new Image("data/img/sprite_platformer/running.png"),
+            new Image("data/img/sprite_platformer/running2.png"), new Image("data/img/sprite_platformer/running3.png"),
+            new Image("data/img/sprite_platformer/running4.png"), new Image("data/img/sprite_platformer/running5.png"),
+            new Image("data/img/sprite_platformer/running6.png"), new Image("data/img/sprite_platformer/running7.png")}, 80);
 
         boundingShape = new AABoundingRect(x, y, 26, 32);
 
