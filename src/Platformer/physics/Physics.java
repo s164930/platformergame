@@ -23,7 +23,7 @@ import org.newdawn.slick.Sound;
 public class Physics {
 
     private final float gravity = 0.0010f;
-    public int collected = 0;
+    private int collected = 0;
     private boolean initSound = true;
 
     public boolean dead = false;

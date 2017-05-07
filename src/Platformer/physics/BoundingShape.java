@@ -15,13 +15,13 @@ import java.util.ArrayList;
 public abstract class BoundingShape {
 
     public boolean checkCollision(BoundingShape bv) {
-        if (bv instanceof AABoundingRect) {
-            return checkCollision((AABoundingRect) bv);
+        if (bv instanceof ABoundingRect) {
+            return checkCollision((ABoundingRect) bv);
         }
         return false;
     }
 
-    public abstract boolean checkCollision(AABoundingRect box);
+    public abstract boolean checkCollision(ABoundingRect box);
 
     public abstract void updatePosition(float newX, float newY);
 

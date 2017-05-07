@@ -12,11 +12,11 @@ import java.util.ArrayList;
  *
  * @author vikto
  */
-public class AABoundingRect extends BoundingShape {
+public class ABoundingRect extends BoundingShape {
 
     public float x, y, width, height;
 
-    public AABoundingRect(float x, float y, float width, float height) {
+    public ABoundingRect(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -38,7 +38,7 @@ public class AABoundingRect extends BoundingShape {
     nogle forskellige logiske konklusioner, som fx at hvis spillerens højeste punkt er under den givne rektangels laveste punkt
     kan de to ikke røre hinanden.
      */
-    public boolean checkCollision(AABoundingRect rect) {
+    public boolean checkCollision(ABoundingRect rect) {
         return !(rect.x > this.x + width || rect.x + rect.width < this.x || rect.y > this.y + height || rect.y + rect.height < this.y);
     }
 

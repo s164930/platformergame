@@ -5,7 +5,7 @@
  */
 package Platformer.character;
 
-import Platformer.physics.AABoundingRect;
+import Platformer.physics.ABoundingRect;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -24,7 +24,7 @@ public class Player extends Character {
             new Image("data/img/sprite_platformer/running4.png"), new Image("data/img/sprite_platformer/running5.png"),
             new Image("data/img/sprite_platformer/running6.png"), new Image("data/img/sprite_platformer/running7.png")}, 80);
 
-        boundingShape = new AABoundingRect(x, y, 26, 32);
+        boundingShape = new ABoundingRect(x, y, 26, 32);
 
         accelerationSpeed = 0.001f;
         maximumSpeed = 0.15f;

@@ -5,7 +5,7 @@
  */
 package Platformer.level;
 
-import Platformer.physics.AABoundingRect;
+import Platformer.physics.ABoundingRect;
 import Platformer.physics.BoundingShape;
 
 /**
@@ -23,7 +23,7 @@ public abstract class LevelObject {
         this.y = y;
 
         // default bound shape er 32x32 box
-        boundingShape = new AABoundingRect(x, y, 32, 32);
+        boundingShape = new ABoundingRect(x, y, 32, 32);
     }
 
     public void applyGravity(float gravity) {
