@@ -5,8 +5,6 @@
  */
 package Platformer.state;
 
-import Platformer.state.HighScore;
-
 import Platformer.PlatformerGame;
 import Platformer.character.Player;
 import Platformer.controller.MouseAndKeyBoardPlayerController;

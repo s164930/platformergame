@@ -25,6 +25,7 @@ public class PlatformerGame extends StateBasedGame {
     public static final boolean FULLSCREEN = false;
     public static final boolean FPS = false;
     public static int currentLevel = 1;
+    public static boolean doneTesting = false;
 
     /*
     1280x720 er standarden, derfor skalerer vi tiles der er 32x32 store, men vi vil gerne have dem til at være
@@ -53,6 +54,9 @@ public class PlatformerGame extends StateBasedGame {
         app.setShowFPS(FPS);
 
         app.start();
+        if(doneTesting){
+            app.exit();
+        }
     }
 
 }
